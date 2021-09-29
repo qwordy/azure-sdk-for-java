@@ -1,8 +1,5 @@
 package com.azure.analytics.purview.catalog;
 
-import com.azure.core.http.HttpHeader;
-import com.azure.core.http.HttpHeaders;
-import com.azure.core.http.policy.AddHeadersPolicy;
 import com.azure.core.http.policy.HttpLogDetailLevel;
 import com.azure.core.http.policy.HttpLogOptions;
 import com.azure.core.http.rest.RequestOptions;
@@ -10,7 +7,6 @@ import com.azure.core.util.BinaryData;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 
 import java.nio.file.Path;
-import java.util.Collections;
 
 public class GlossaryImportTerms {
     public static void main(String[] args) {

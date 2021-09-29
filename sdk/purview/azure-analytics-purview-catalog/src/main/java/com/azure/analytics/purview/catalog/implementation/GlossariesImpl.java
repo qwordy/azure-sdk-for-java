@@ -23,8 +23,11 @@ import com.azure.core.http.rest.RestProxy;
 import com.azure.core.util.BinaryData;
 import com.azure.core.util.Context;
 import com.azure.core.util.FluxUtil;
-import com.azure.core.util.polling.DefaultPollingStrategy;
+import com.azure.core.util.polling.ChainedPollingStrategy;
+import com.azure.core.util.polling.LocationPollingStrategy;
+import com.azure.core.util.polling.OperationResourcePollingStrategy;
 import com.azure.core.util.polling.PollerFlux;
+import com.azure.core.util.polling.StatusCheckPollingStrategy;
 import com.azure.core.util.polling.SyncPoller;
 import com.azure.core.util.serializer.TypeReference;
 import java.nio.ByteBuffer;
@@ -290,7 +293,7 @@ public final class GlossariesImpl {
                 @HostParam("Endpoint") String endpoint,
                 @PathParam("glossaryName") String glossaryName,
                 @QueryParam("api-version") String apiVersion,
-                @BodyParam("multipart/form-data") BinaryData file,
+                @BodyParam("multipart/form-data; boundary=----WebKitFormBoundarySfdITjdkB9iBsA0A") BinaryData file,
                 RequestOptions requestOptions,
                 Context context);
 
@@ -8608,7 +8611,7 @@ public final class GlossariesImpl {
         return PollerFlux.create(
                 Duration.ofSeconds(1),
                 () -> this.importGlossaryTermsViaCsvWithResponseAsync(glossaryGuid, file, requestOptions),
-                new DefaultPollingStrategy<>(this.client.getHttpPipeline()),
+                new LocationPollingStrategy<>(this.client.getHttpPipeline()),
                 new TypeReference<BinaryData>() {},
                 new TypeReference<BinaryData>() {});
     }
@@ -8671,7 +8674,7 @@ public final class GlossariesImpl {
         return PollerFlux.create(
                 Duration.ofSeconds(1),
                 () -> this.importGlossaryTermsViaCsvWithResponseAsync(glossaryGuid, file, requestOptions, context),
-                new DefaultPollingStrategy<>(this.client.getHttpPipeline()),
+                new LocationPollingStrategy<>(this.client.getHttpPipeline()),
                 new TypeReference<BinaryData>() {},
                 new TypeReference<BinaryData>() {});
     }
@@ -8979,7 +8982,7 @@ public final class GlossariesImpl {
         return PollerFlux.create(
                 Duration.ofSeconds(1),
                 () -> this.importGlossaryTermsViaCsvByGlossaryNameWithResponseAsync(glossaryName, file, requestOptions),
-                new DefaultPollingStrategy<>(this.client.getHttpPipeline()),
+                new LocationPollingStrategy<>(this.client.getHttpPipeline()),
                 new TypeReference<BinaryData>() {},
                 new TypeReference<BinaryData>() {});
     }
@@ -9044,7 +9047,7 @@ public final class GlossariesImpl {
                 () ->
                         this.importGlossaryTermsViaCsvByGlossaryNameWithResponseAsync(
                                 glossaryName, file, requestOptions, context),
-                new DefaultPollingStrategy<>(this.client.getHttpPipeline()),
+                new LocationPollingStrategy<>(this.client.getHttpPipeline()),
                 new TypeReference<BinaryData>() {},
                 new TypeReference<BinaryData>() {});
     }
